@@ -23,7 +23,5 @@ public class LiquidService extends JavaService
 		} else {
 			throw new FaultException( "IOException", "Currently only the JSON data format is supported" );
 		}
-
 	}
-
 }
