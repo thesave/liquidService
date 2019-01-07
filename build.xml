@@ -7,8 +7,8 @@
 <!-- the Compile on Save feature is turned off for the project. -->
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
-<project name="liquidService" default="default" basedir=".">
-    <description>Builds, tests, and runs the project liquidService.</description>
+<project name="liquidService" default="dist" basedir=".">
+    <description>Builds the project liquidService.</description>
     <import file="nbproject/build-impl.xml"/>
     <!--
 
@@ -70,4 +70,26 @@
     nbproject/build-impl.xml file. 
 
     -->
+  <target name="dist" depends="jar" >
+    <copy todir="dist/lib" flatten="true">
+      <resources>
+        <file file="lib/antlr4-runtime.jar"/>
+        <file file="lib/jackson-annotations.jar"/>
+        <file file="lib/jackson-core.jar"/>
+        <file file="lib/jackson-databind.jar"/>
+        <file file="lib/jsoup.jar"/>
+        <file file="lib/liqp.jar"/>
+      </resources>
+    </copy>
+    <copy todir="dist/include" flatten="true">
+      <resources>
+        <file file="include/liquid.iol"/> 
+      </resources>
+    </copy>
+    <move todir="dist/lib">
+      <file file="dist/liquidService.jar"/>
+    </move>
+  </target>
+
+
 </project>
