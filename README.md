@@ -4,7 +4,7 @@ LiquidService is a [Jolie](https://github.com/jolie/jolie) service that exposes 
 
 ## Install and Execution
 
-Download the latest released archive and extract the files in the project, e.g., in folder `liquid`.
+Download the latest [released archive](https://github.com/thesave/liquidService/releases/) and extract the files in the project, e.g., in folder `liquid`.
 To use the library in your Jolie program:
 
 - make sure to include it in your Jolie program with command `include "liquid/include/liquid.iol"` (i.e., include the `liquid.iol` file within the extracted folder
