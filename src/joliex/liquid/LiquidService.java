@@ -21,28 +21,66 @@
 
 package joliex.liquid;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.HashMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import jolie.runtime.AndJarDeps;
 import jolie.runtime.FaultException;
 import jolie.runtime.JavaService;
 import jolie.runtime.Value;
 import jolie.runtime.embedding.RequestResponse;
 import liqp.Template;
+import liqp.filters.Filter;
 
 @AndJarDeps( { "liqp.jar", "jsoup.jar", "jackson-databind.jar", 
 	"jackson-annotations.jar", "antlr4-runtime.jar", "jackson-core.jar" } )
 
 public class LiquidService extends JavaService
 {
+	static final HashMap<String, Template> templatesMap = new HashMap();
 	
+	static {
+		Filter.registerFilter( new Filter( "useTemplate" ){
+		@Override
+		public Object apply( Object value, Object... params ) {
+			ObjectMapper objectMapper = new ObjectMapper();
+			String input = "";
+			try {
+				input = objectMapper.writeValueAsString( value );
+			} catch( JsonProcessingException ex ) {
+				Logger.getLogger( LiquidService.class.getName() ).log( Level.SEVERE, null, ex );
+			}
+			String templateName = super.asString( params[0] );
+			if( templatesMap.containsKey( templateName ) ){
+				return templatesMap.get( templateName ).render( input );
+			} else {
+				return "";
+			}
+		}
+		});
+	}
+	
+	@RequestResponse
+	public void loadTemplate( Value request ) {
+		templatesMap.put( 
+			request.getFirstChild( "name" ).strValue(), 
+			Template.parse( request.getFirstChild( "template" ).strValue() )
+		);
+	}
+
 	@RequestResponse
 	public Value renderDocument( Value request ) throws FaultException
 	{
 		if ( request.getFirstChild( "format" ).isDefined()
 			&& request.getFirstChild( "format" ).strValue().toLowerCase().equals( "json" ) ) {
 			Template template = Template.parse( request.getFirstChild( "template" ).strValue() );
-			return Value.create( template.render( request.getFirstChild( "data" ).strValue() ) );
+			String rendering = template.render( request.getFirstChild( "data" ).strValue() );
+			return Value.create( rendering );
 		} else {
 			throw new FaultException( "IOException", "Currently only the JSON data format is supported" );
 		}
 	}
+	
 }

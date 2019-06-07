@@ -25,8 +25,15 @@
   .template: string
 }
 
+type LoadRequest: void {
+  .template: string
+  .name: string
+}
+
 interface LiquidInterface {
-  RequestResponse: renderDocument( LiquidRequest )( string )
+  RequestResponse: 
+    renderDocument( LiquidRequest )( string ),
+    loadTemplate( LoadRequest )( void )
 }
 
 outputPort Liquid {
