@@ -23,7 +23,7 @@ type LiquidRequest: void {
 * Loaded templates are useful when sub-templates are necessary
 * in the main template (the one used in the renderDocument operation).
 * From any template , it is possible to pass data to a loaded template
-* with the useTemplate filter, e.g., {{ data | useTemplate: templateName }}
+* with the useTemplate filter, e.g., {{ data | useTemplate: "myTemplate" }}
 */
 type LoadRequest: void {
   .name: string
