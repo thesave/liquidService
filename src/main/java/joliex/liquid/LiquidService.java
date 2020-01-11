@@ -34,13 +34,12 @@ import jolie.runtime.embedding.RequestResponse;
 import liqp.Template;
 import liqp.filters.Filter;
 
-@AndJarDeps( { "liqp.jar", "jsoup.jar", "jackson-databind.jar", 
+@AndJarDeps( { "liqp.jar", "jsoup.jar", "jackson-databind.jar",
 	"jackson-annotations.jar", "antlr4-runtime.jar", "jackson-core.jar" } )
-
 public class LiquidService extends JavaService
 {
-	static final HashMap<String, Template> templatesMap = new HashMap();
-	
+	static final HashMap< String, Template > templatesMap = new HashMap<>();
+
 	static {
 		Filter.registerFilter( new Filter( "useTemplate" ){
 		@Override
@@ -61,11 +60,11 @@ public class LiquidService extends JavaService
 		}
 		});
 	}
-	
+
 	@RequestResponse
 	public void loadTemplate( Value request ) {
-		templatesMap.put( 
-			request.getFirstChild( "name" ).strValue(), 
+		templatesMap.put(
+			request.getFirstChild( "name" ).strValue(),
 			Template.parse( request.getFirstChild( "template" ).strValue() )
 		);
 	}
@@ -82,5 +81,5 @@ public class LiquidService extends JavaService
 			throw new FaultException( "IOException", "Currently only the JSON data format is supported" );
 		}
 	}
-	
+
 }
