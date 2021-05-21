@@ -2,3 +2,6 @@ build/*
 dist/*
 .idea/*
 target/*
+.gradle/*
+lib/*
+release/*

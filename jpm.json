@@ -1,0 +1,57 @@
+{
+   "name": "@jolie/liquid",
+   "description": "A wrapper for the Liqp Liquid template engine",
+   "collaborators": [
+      "Saverio Giallorenzo"
+   ],
+   "version": "@VERSION@",
+   "license": "LGPL 2.1",
+   "keywords": [
+      "microservices",
+      "jolie",
+      "templates",
+      "Liquid"
+   ],
+   "scripts": {
+      "jolive": "npx nodemon --exec jolie ./server.ol",
+      "clean": "rm ./hs_err_pid*"
+   },
+   "distJar": "liquidService-@VERSION@.jar",
+   "dependencies": {
+      "mvn": {
+         "org.jolie-lang:jolie": "1.10.0",
+         "org.jolie-lang:jolie-js": "1.10.0",
+         "nl.big-o:liqp": "0.7.9",
+         "org.antlr:antlr4-runtime": "4.7.2",
+         "com.fasterxml.jackson.core:jackson-annotations": "2.10.5",
+         "com.fasterxml.jackson.core:jackson-core": "2.10.5",
+         "com.fasterxml.jackson.core:jackson-databind": "2.10.5",
+         "org.jsoup:jsoup": "1.12.2",
+         "com.googlecode.json-simple:json-simple": "1.1.1",
+         "junit:junit": "4.10"
+      },
+      "npm": {}
+   },
+   "mvnPeers": {
+      "nl.big-o:liqp": {
+         "com.fasterxml.jackson.core:jackson-annotations": "${jackson.version}",
+         "com.fasterxml.jackson.core:jackson-core": "${jackson.version}",
+         "com.fasterxml.jackson.core:jackson-databind": "${jackson.version}",
+         "org.jsoup:jsoup": "${jsoup.version}"
+      },
+      "com.fasterxml.jackson.core:jackson-databind": {
+         "com.fasterxml.jackson.core:jackson-annotations": "${jackson.version.annotations}",
+         "com.fasterxml.jackson.core:jackson-core": "${jackson.version.core}"
+      },
+      "com.googlecode.json-simple:json-simple": {
+         "junit:junit": "4.10"
+      },
+      "org.jolie-lang:jolie": {
+         "${project.groupId}:libjolie": "${jolie.version}"
+      },
+      "org.jolie-lang:jolie-js": {
+         "${project.groupId}:jolie": "${jolie.version}",
+         "com.googlecode.json-simple:json-simple": "1.1.1"
+      }
+   }
+}

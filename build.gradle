@@ -1,0 +1,52 @@
+plugins {
+    id 'java'
+    id 'java-library'
+}
+
+repositories {
+    mavenCentral()
+}
+
+version "0.2.4"
+def libDir = file( "lib" )
+def releaseDir = file( "release" )
+
+dependencies {
+    implementation fileTree( dir: libDir, include: '*.jar' )
+}
+
+jar {
+    destinationDirectory.set buildDir.toPath().resolve( "lib" ).toFile()
+    enabled = true
+    manifest {
+        attributes 'Main-Class': 'TQueryService'
+    }
+}
+
+import org.apache.tools.ant.filters.ReplaceTokens
+
+task makeRelease() {
+    tasks.compileJava.mustRunAfter( clean )
+    dependsOn( clean )
+    dependsOn( build )
+    doFirst {
+        delete releaseDir
+    }
+    doLast{
+        copy {
+            from( buildDir.toPath().resolve( "lib" ) ){
+                include "*.jar"
+            }
+            into releaseDir.toPath().resolve( "dist" )
+        }
+        copy {
+            from( projectDir ){
+                include "main.ol"
+                include "README.md"
+                include "jpm.json"
+                filter( ReplaceTokens, tokens: [ VERSION: version ] )
+            }
+            into releaseDir
+        }
+    }
+}
