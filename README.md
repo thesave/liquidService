@@ -19,11 +19,12 @@ service main(){
   main {
     template = 
     "{% case language %}"
+    + "{% when 'Danish' %}Hej"
     + "{% when 'French' %}Salut"
     + "{% when 'Italian' %}Ciao"
     + "{% when 'Spanish' %}Hola"
-    + "{% when 'S̄wạs̄dī' %}สวัสดี"
     + "{% when 'Russian' %}привет"
+    + "{% when 'Thai' %}สวัสดี"
     + "{% else %}Hi"
     + "{% endcase %}"
     + ", {{ name }}"
