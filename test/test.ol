@@ -13,7 +13,7 @@ service main(){
     + "{% when 'Italian' %}Ciao"
     + "{% when 'Spanish' %}Hola"
     + "{% when 'Russian' %}привет"
-    + "{% when 'S̄wạs̄dī' %}สวัสดี"
+    + "{% when 'Thai' %}สวัสดี"
     + "{% else %}Hi"
     + "{% endcase %}"
     + ", {{ name }}"
