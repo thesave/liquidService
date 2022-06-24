@@ -9,6 +9,7 @@ service main(){
   main {
     template = 
     "{% case language %}"
+    + "{% when 'Danish' %}Hej"
     + "{% when 'French' %}Salut"
     + "{% when 'Italian' %}Ciao"
     + "{% when 'Spanish' %}Hola"
